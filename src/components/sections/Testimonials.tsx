@@ -77,7 +77,7 @@ function Placeholder({ index }: { index: number }) {
 export function Testimonials() {
   const hasReviews = testimonials.length > 0;
   return (
-    <section id="depoimentos" aria-labelledby="depoimentos-titulo" className="relative scroll-mt-20 py-24 md:py-36">
+    <section id="depoimentos" aria-labelledby="depoimentos-titulo" className="relative py-24 md:py-36">
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 hairline" />
       <div className="container-x">
         <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">

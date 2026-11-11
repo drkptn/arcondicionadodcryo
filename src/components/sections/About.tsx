@@ -7,7 +7,7 @@ import { principles } from "@/config/content";
 /** 01 — Apresentação da empresa: composição editorial assimétrica. */
 export function About() {
   return (
-    <section id="sobre" aria-labelledby="sobre-titulo" className="relative scroll-mt-20 py-24 md:py-40">
+    <section id="sobre" aria-labelledby="sobre-titulo" className="relative py-24 md:py-40">
       <div className="container-x grid gap-16 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-7">
           <SectionHeading id="sobre-titulo" index="01" eyebrow="A DCRYO" title="Conforto pensado nos mínimos detalhes." accentFrom={3} />
@@ -42,6 +42,7 @@ export function About() {
                 name="sala"
                 alt="Render ilustrativo: sala de estar com split instalado e faixa de sol na parede"
                 sizes="(min-width: 1024px) 38vw, 82vw"
+                className="size-full"
                 imgClassName="object-[62%_50%]"
               />
             </Parallax>
@@ -62,11 +63,11 @@ export function About() {
           </Drift>
 
           {/* régua de temperatura — elemento gráfico da marca */}
-          <div aria-hidden className="absolute -right-1 top-0 hidden h-full flex-col justify-between py-16 lg:flex xl:-right-8">
+          <div aria-hidden className="absolute -left-9 top-10 hidden h-[58%] flex-col items-end justify-between py-10 lg:flex">
             {[26, 24, 22, 20, 18].map((t) => (
               <span key={t} className="flex items-center gap-2 font-mono text-[0.625rem] tracking-[0.14em] text-muted">
-                <span className={t === 22 ? "h-px w-6 bg-accent" : "h-px w-3 bg-line-strong"} />
                 <span className={t === 22 ? "text-accent" : undefined}>{t}°</span>
+                <span className={t === 22 ? "h-px w-6 bg-accent" : "h-px w-3 bg-line-strong"} />
               </span>
             ))}
           </div>

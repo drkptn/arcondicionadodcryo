@@ -142,20 +142,23 @@ export function Header({ home = true }: { home?: boolean }) {
             </nav>
 
             <div className="relative z-10 flex items-center gap-2">
-              <ThemeToggle className="hidden sm:inline-flex" />
-              <Button
-                size="sm"
-                trailingIcon="arrowUpRight"
-                className="hidden sm:inline-flex"
-                href={href("contato")}
-                onClick={(event) => {
-                  if (!home) return;
-                  event.preventDefault();
-                  requestQuote();
-                }}
-              >
-                Solicitar orçamento
-              </Button>
+              <div className="hidden sm:block">
+                <ThemeToggle />
+              </div>
+              <div className="hidden sm:block">
+                <Button
+                  size="sm"
+                  trailingIcon="arrowUpRight"
+                  href={href("contato")}
+                  onClick={(event) => {
+                    if (!home) return;
+                    event.preventDefault();
+                    requestQuote();
+                  }}
+                >
+                  Solicitar orçamento
+                </Button>
+              </div>
               <button
                 ref={toggleRef}
                 type="button"
@@ -174,8 +177,8 @@ export function Header({ home = true }: { home?: boolean }) {
                   />
                   <span
                     className={cn(
-                      "absolute bottom-0 left-0 h-[1.5px] w-full origin-right rounded bg-current transition-transform duration-500 ease-out-expo",
-                      open ? "-translate-y-[5.25px] -rotate-45 origin-center" : "scale-x-[0.6]",
+                      "absolute bottom-0 left-0 h-[1.5px] w-full rounded bg-current transition-transform duration-500 ease-out-expo",
+                      open ? "-translate-y-[5.25px] -rotate-45" : "origin-right scale-x-[0.6]",
                     )}
                   />
                 </span>

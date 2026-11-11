@@ -39,9 +39,9 @@ function digit(ctx: CanvasRenderingContext2D, ch: string, x0: number, y0: number
 
 function draw(ctx: CanvasRenderingContext2D, value: number) {
   ctx.clearRect(0, 0, W, H);
-  ctx.fillStyle = "#d6ebff";
-  ctx.shadowColor = "rgba(150, 205, 255, 0.95)";
-  ctx.shadowBlur = 22;
+  ctx.fillStyle = "#3d9df5";
+  ctx.shadowColor = "rgba(61, 157, 245, 0.9)";
+  ctx.shadowBlur = 18;
   const text = String(Math.round(value)).padStart(2, "0");
   const dw = 74;
   const dh = 132;
@@ -54,7 +54,7 @@ function draw(ctx: CanvasRenderingContext2D, value: number) {
   }
   // grau + C
   ctx.lineWidth = 6.4;
-  ctx.strokeStyle = "#d6ebff";
+  ctx.strokeStyle = "#3d9df5";
   ctx.beginPath();
   ctx.arc(x + 10, y0 + 16, 11, 0, Math.PI * 2);
   ctx.stroke();

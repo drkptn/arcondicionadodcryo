@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import { OceanCanvas } from "@/components/effects/OceanCanvas";
 import { Icon, type IconName } from "@/components/icons";
 import { useQuote } from "@/components/providers/QuoteProvider";
@@ -27,7 +27,7 @@ type Values = {
 
 type Status = "idle" | "sending" | "sent" | "whatsapp" | "error";
 
-const empty: Values = { name: "", phone: "", email: "", city: "", service: "", environment: "", message: "", website: "" };
+const empty: Omit<Values, "service"> = { name: "", phone: "", email: "", city: "", environment: "", message: "", website: "" };
 const serviceOptions = [...services.map((service) => service.short), "Outro assunto"];
 const order: (keyof Values)[] = ["name", "phone", "email", "city", "service"];
 const fieldIds: Partial<Record<keyof Values, string>> = {
@@ -67,21 +67,19 @@ function buildMessage(values: Values) {
 /** 10 — Contato e orçamento: formulário validado + WhatsApp, sobre um oceano noturno. */
 export function Contact() {
   const { service, setService } = useQuote();
-  const [values, setValues] = useState<Values>(empty);
   const [errors, setErrors] = useState<Partial<Record<keyof Values, string>>>({});
   const [status, setStatus] = useState<Status>("idle");
   const result = useRef<HTMLDivElement>(null);
   const viaEndpoint = Boolean(site.formEndpoint);
 
-  // serviço escolhido nos cards de serviço → já vem selecionado aqui
-  useEffect(() => {
-    if (service) setValues((current) => ({ ...current, service }));
-  }, [service]);
+  // O serviço escolhido nos cards da seção "Serviços" vive no QuoteProvider e já chega selecionado.
+  const [form, setForm] = useState<Omit<Values, "service">>(empty);
+  const values: Values = { ...form, service };
 
   const set = <K extends keyof Values>(key: K, value: Values[K]) => {
-    setValues((current) => ({ ...current, [key]: value }));
-    if (errors[key]) setErrors((current) => ({ ...current, [key]: undefined }));
     if (key === "service") setService(String(value));
+    else setForm((current) => ({ ...current, [key]: value }));
+    if (errors[key]) setErrors((current) => ({ ...current, [key]: undefined }));
   };
 
   const submit = async (event: FormEvent<HTMLFormElement>) => {
@@ -130,7 +128,8 @@ export function Contact() {
   };
 
   const reset = () => {
-    setValues(empty);
+    setForm(empty);
+    setService("");
     setErrors({});
     setStatus("idle");
   };
@@ -145,7 +144,7 @@ export function Contact() {
   const done = status === "sent" || status === "whatsapp";
 
   return (
-    <section id="contato" data-theme="dark" aria-labelledby="contato-titulo" className="relative isolate scroll-mt-0 overflow-hidden bg-deep py-24 text-fg md:py-36">
+    <section id="contato" data-theme="dark" aria-labelledby="contato-titulo" className="relative isolate overflow-hidden bg-deep py-24 text-fg md:py-36">
       {/* oceano profundo */}
       <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(80%_60%_at_30%_30%,#12305c,transparent_70%),linear-gradient(180deg,#070c18,#00002a_60%,#070c18)]">
         <OceanCanvas className="opacity-90" />

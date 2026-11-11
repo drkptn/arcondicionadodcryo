@@ -39,19 +39,19 @@ export function Condensation({ count = 26, seed = 7, className, bias = "top" }: 
         <span
           key={drop.id}
           className="absolute"
-          style={{ left: `${drop.left}%`, top: `${drop.top}%`, opacity: drop.opacity }}
+          style={{ left: `${drop.left.toFixed(2)}%`, top: `${drop.top.toFixed(2)}%`, opacity: Number(drop.opacity.toFixed(2)) }}
         >
           {drop.trail > 0 && (
             <span
               className="absolute bottom-1/2 left-1/2 w-px -translate-x-1/2 bg-[linear-gradient(to_top,rgb(234_243_250/0.35),transparent)]"
-              style={{ height: drop.trail }}
+              style={{ height: Math.round(drop.trail) }}
             />
           )}
           <span
             className="block rounded-[50%_50%_50%_50%/42%_42%_58%_58%] shadow-[inset_0_-1px_1px_rgb(255_255_255/0.35),inset_0_1px_1px_rgb(0_0_30/0.25),0_1px_2px_rgb(0_0_30/0.35)]"
             style={{
-              width: drop.size,
-              height: drop.size * drop.stretch,
+              width: Number(drop.size.toFixed(1)),
+              height: Number((drop.size * drop.stretch).toFixed(1)),
               background:
                 "radial-gradient(circle at 32% 26%, rgb(255 255 255 / 0.75) 0, rgb(255 255 255 / 0.12) 34%, transparent 58%), radial-gradient(circle at 68% 78%, rgb(169 200 224 / 0.45), transparent 62%), rgb(169 200 224 / 0.08)",
             }}

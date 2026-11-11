@@ -11,7 +11,8 @@ type ScrollContextValue = {
 
 const ScrollContext = createContext<ScrollContextValue>({ scrollTo: () => {}, lock: () => {} });
 
-const HEADER_OFFSET = -76;
+/** O Lenis já respeita `scroll-padding-top` do <html> (altura do cabeçalho fixo). */
+const HEADER_OFFSET = 0;
 
 export function SmoothScroll({ children }: { children: ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null);
@@ -34,13 +35,28 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
   const scrollTo = useCallback<ScrollContextValue["scrollTo"]>((target, options) => {
     const lenis = lenisRef.current;
     const offset = options?.offset ?? HEADER_OFFSET;
-    if (lenis) {
-      lenis.scrollTo(target, { offset, immediate: options?.immediate, force: true });
-      return;
+    // A posição final é calculada a partir da rolagem real da janela (e não do estado
+    // interno do Lenis), para acertar o alvo mesmo logo após um salto nativo de rolagem.
+    let top: number;
+    if (typeof target === "number") {
+      top = target;
+    } else {
+      const el = typeof target === "string" ? document.querySelector<HTMLElement>(target) : target;
+      if (!el) return;
+      const padding = Number.parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+      top = el.getBoundingClientRect().top + window.scrollY - padding + offset;
     }
-    const el = typeof target === "string" ? document.querySelector<HTMLElement>(target) : target;
-    if (typeof el === "number") window.scrollTo({ top: el });
-    else if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY + offset });
+    top = Math.max(0, top);
+    if (lenis) {
+      lenis.scrollTo(top, {
+        immediate: options?.immediate,
+        force: true,
+        duration: 1.5,
+        easing: (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2),
+      });
+    } else {
+      window.scrollTo({ top });
+    }
   }, []);
 
   const lock = useCallback((locked: boolean) => {

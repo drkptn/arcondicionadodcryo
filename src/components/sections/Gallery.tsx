@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useMemo, useState } from "react";
 import { Icon } from "@/components/icons";
+import { useQuote } from "@/components/providers/QuoteProvider";
 import { Lightbox } from "@/components/ui/Lightbox";
 import { Picture } from "@/components/ui/Picture";
 import { Reveal } from "@/components/ui/Reveal";
@@ -25,10 +26,11 @@ export function Gallery() {
   const [filter, setFilter] = useState<Filter>("todos");
   const [open, setOpen] = useState<number | null>(null);
   const hydrated = useHydrated();
+  const { requestQuote } = useQuote();
   const items = useMemo(() => (filter === "todos" ? gallery : gallery.filter((item) => item.category === filter)), [filter]);
 
   return (
-    <section id="galeria" aria-labelledby="galeria-titulo" className="relative scroll-mt-20 py-24 md:py-36">
+    <section id="galeria" aria-labelledby="galeria-titulo" className="relative py-24 md:py-36">
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 hairline" />
       <div className="container-x">
         <div className="flex flex-col justify-between gap-10 lg:flex-row lg:items-end">
@@ -67,7 +69,7 @@ export function Gallery() {
           </Reveal>
         </div>
 
-        <ul className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 md:mt-16 lg:auto-rows-[8.5rem] lg:grid-cols-12">
+        <ul className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 md:mt-16 lg:auto-rows-[9rem] lg:grid-cols-12">
           <AnimatePresence mode="popLayout" initial={false}>
             {items.map((item, index) => (
               <motion.li
@@ -111,6 +113,33 @@ export function Gallery() {
                 </button>
               </motion.li>
             ))}
+            {filter === "todos" && (
+              <motion.li
+                key="chamada"
+                layout
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                className="relative flex min-h-[15rem] flex-col justify-between overflow-hidden rounded-[1.75rem] border border-line-strong bg-[linear-gradient(150deg,var(--surface-2),var(--surface))] p-6 sm:col-span-2 lg:col-span-4 lg:row-span-2 lg:min-h-0"
+              >
+                <span aria-hidden className="isotherms pointer-events-none absolute inset-0 opacity-70" />
+                <p className="eyebrow relative text-accent">Próximo projeto</p>
+                <div className="relative">
+                  <p className="font-display text-2xl font-semibold leading-tight tracking-[-0.03em]">O seu ambiente pode ser o próximo.</p>
+                  <button
+                    type="button"
+                    onClick={() => requestQuote()}
+                    className="group/c mt-4 inline-flex items-center gap-2 text-sm font-medium text-fg"
+                  >
+                    <span className="link-line pb-0.5">Solicitar orçamento</span>
+                    <span className="grid size-8 place-items-center rounded-full border border-line-strong transition-[background-color,border-color,color,rotate] duration-500 ease-out-expo group-hover/c:rotate-45 group-hover/c:border-accent group-hover/c:bg-accent group-hover/c:text-on-accent">
+                      <Icon name="arrowUpRight" size={15} />
+                    </span>
+                  </button>
+                </div>
+              </motion.li>
+            )}
           </AnimatePresence>
         </ul>
 

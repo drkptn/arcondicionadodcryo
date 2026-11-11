@@ -21,7 +21,7 @@ export function Process() {
   });
 
   return (
-    <section id="processo" aria-labelledby="processo-titulo" className="relative scroll-mt-20 py-24 md:py-36">
+    <section id="processo" aria-labelledby="processo-titulo" className="relative py-24 md:py-36">
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 hairline" />
       <div className="container-x">
         <SectionHeading
@@ -52,10 +52,10 @@ export function Process() {
               <Reveal as="li" key={step.title} delay={index * 0.08} className="relative flex gap-6 md:block">
                 <div
                   className={cn(
-                    "relative z-10 grid size-14 shrink-0 place-items-center rounded-full border bg-bg transition-[border-color,background-color,color,box-shadow] duration-700 ease-out-expo",
+                    "relative z-10 grid size-14 shrink-0 place-items-center rounded-full border transition-[border-color,background-color,color,box-shadow] duration-700 ease-out-expo",
                     on
                       ? "border-accent bg-accent text-on-accent shadow-[0_0_0_6px_color-mix(in_srgb,var(--accent)_14%,transparent),0_0_34px_-2px_var(--glow)]"
-                      : "border-line-strong text-muted",
+                      : "border-line-strong bg-bg text-muted",
                   )}
                 >
                   <Icon name={step.icon} size={24} />

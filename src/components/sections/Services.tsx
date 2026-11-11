@@ -41,13 +41,14 @@ function FeaturedCard({ service, index }: { service: Service; index: number }) {
               name={service.image}
               alt={service.imageAlt ?? ""}
               sizes="(min-width: 1024px) 56vw, 100vw"
+              className="size-full"
               imgClassName="transition-transform duration-[1600ms] ease-out-expo group-hover:scale-[1.05]"
             />
             <div aria-hidden className="absolute inset-0 bg-[linear-gradient(to_top,rgb(7_12_24/0.94)_8%,rgb(7_12_24/0.55)_45%,rgb(7_12_24/0.08)_78%)]" />
           </div>
         )}
         <div className="relative z-10 flex items-start justify-between p-6 md:p-8 [transform:translateZ(30px)]">
-          <span className="glass grid size-12 place-items-center rounded-2xl text-frost">
+          <span className="grid size-12 place-items-center rounded-2xl border border-white/20 bg-white/10 text-frost backdrop-blur-md">
             <Icon name={service.icon} size={24} />
           </span>
           <span className="font-mono text-[0.6875rem] tracking-[0.2em] text-frost/70">{String(index + 1).padStart(2, "0")}</span>
@@ -101,7 +102,7 @@ export function Services() {
   const featured = services.filter((service) => service.image);
   const compact = services.filter((service) => !service.image);
   return (
-    <section id="servicos" aria-labelledby="servicos-titulo" className="relative scroll-mt-20 py-24 md:py-36">
+    <section id="servicos" aria-labelledby="servicos-titulo" className="relative py-24 md:py-36">
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 hairline" />
       <div className="container-x">
         <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">

@@ -60,7 +60,7 @@ export function Words({ text, className, delay = 0, stagger = 0.055, immediate =
       transition={{ staggerChildren: stagger, delayChildren: delay }}
     >
       {words.map((word, index) => (
-        <span key={`${word}-${index}`} aria-hidden className="inline-block overflow-hidden pb-[0.14em] -mb-[0.14em] align-bottom">
+        <span key={`${word}-${index}`} aria-hidden className="inline-block overflow-hidden pb-[0.24em] -mb-[0.24em] align-bottom">
           <motion.span
             data-reveal
             className={cn("inline-block", accentFrom !== undefined && index >= accentFrom && accentClassName)}

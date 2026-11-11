@@ -26,7 +26,7 @@ export function StudioEnvironment({ light }: { light: boolean }) {
     <Environment key={light ? "light" : "dark"} resolution={256} frames={1}>
       <color attach="background" args={[light ? "#b9cbdc" : "#03060c"]} />
       <Lightformer form="rect" intensity={light ? 3.2 : 4.2} color="#ffffff" position={[-4, 4, 4]} scale={[7, 3.5, 1]} target={[0, 0, 0]} />
-      <Lightformer form="rect" intensity={light ? 1.6 : 2.6} color="#8fc0f2" position={[5, 1, -3]} scale={[5, 7, 1]} target={[0, 0, 0]} />
+      <Lightformer form="rect" intensity={light ? 1.4 : 1.7} color="#a9cdf0" position={[5, 1, -3]} scale={[5, 7, 1]} target={[0, 0, 0]} />
       <Lightformer form="rect" intensity={light ? 1.2 : 1.1} color="#3f78c4" position={[0, -4, 2]} scale={[9, 2.5, 1]} target={[0, 0, 0]} />
       <Lightformer form="circle" intensity={light ? 1.4 : 2.2} color="#dcecff" position={[0.5, 2.5, -5]} scale={[4, 4, 1]} target={[0, 0, 0]} />
       <Lightformer form="rect" intensity={light ? 0.8 : 0.5} color="#ffffff" position={[-6, -1, -1]} scale={[2, 6, 1]} target={[0, 0, 0]} />
@@ -49,9 +49,9 @@ function Rig({ temperature, light, lite, pointer, onReady }: Omit<HeroSceneProps
     ? (viewport.width * 0.86) / 0.92
     : compact
       ? (viewport.width * 0.56) / 0.92
-      : Math.min((viewport.width * 0.47) / 0.92, 2.5);
-  const baseX = portrait ? 0 : compact ? viewport.width * 0.16 : viewport.width * 0.215;
-  const baseY = portrait ? viewport.height * 0.2 : viewport.height * 0.085;
+      : Math.min((viewport.width * 0.43) / 0.92, 2.4);
+  const baseX = portrait ? 0 : compact ? viewport.width * 0.16 : viewport.width * 0.2;
+  const baseY = portrait ? viewport.height * 0.235 : viewport.height * 0.01;
 
   // colder => fluxo mais intenso e aleta mais aberta
   const cold = THREE.MathUtils.clamp((26 - temperature) / 9, 0, 1);
@@ -91,7 +91,14 @@ function Rig({ temperature, light, lite, pointer, onReady }: Omit<HeroSceneProps
     }
     if (glow.current) {
       const m = glow.current.material as THREE.MeshBasicMaterial;
-      m.opacity = (light ? 0.0 : 0.16 + cold * 0.2) * ease * (0.85 + Math.sin(t * 0.9) * 0.15);
+      // escuro: brilho frio aditivo · claro: sombra suave azulada sob o aparelho
+      const wanted = light ? THREE.NormalBlending : THREE.AdditiveBlending;
+      if (m.blending !== wanted) {
+        m.blending = wanted;
+        m.color.set(light ? "#1a3f75" : "#5c9be0");
+        m.needsUpdate = true;
+      }
+      m.opacity = (light ? 0.17 : 0.16 + cold * 0.2) * ease * (0.85 + Math.sin(t * 0.9) * 0.15);
       glow.current.position.set(g.position.x, g.position.y - 0.62 * s, -0.4);
       glow.current.scale.set(3.4 * s, 1.5 * s, 1);
     }
@@ -102,7 +109,7 @@ function Rig({ temperature, light, lite, pointer, onReady }: Omit<HeroSceneProps
       <StudioEnvironment light={light} />
       <ambientLight intensity={light ? 0.75 : 0.22} color={light ? "#ffffff" : "#9fc3ea"} />
       <directionalLight position={[-3.5, 4.5, 4]} intensity={light ? 1.6 : 1.9} color="#ffffff" />
-      <directionalLight position={[4, -1.5, 2]} intensity={light ? 0.25 : 0.55} color="#5d95d6" />
+      <directionalLight position={[4, -1.5, 2]} intensity={light ? 0.2 : 0.32} color="#8fb4e0" />
       <pointLight ref={cursorLight} position={[0, 0, 1.7]} intensity={light ? 2 : 5.5} distance={5} decay={2} color="#bfe1ff" />
 
       {/* piscina de ar frio sob o aparelho */}
@@ -115,7 +122,7 @@ function Rig({ temperature, light, lite, pointer, onReady }: Omit<HeroSceneProps
         <SplitUnit flap={0.45 + cold * 0.55} temperature={temperature} airflow={0.55 + cold * 0.75} light={light} />
       </group>
 
-      <Particles count={lite ? 70 : 220} pointer={pointer} light={light} box={[viewport.width * 1.35, viewport.height * 1.3, 5]} />
+      <Particles count={lite ? 55 : 130} pointer={pointer} light={light} width={viewport.width * 1.35} height={viewport.height * 1.3} />
     </>
   );
 }

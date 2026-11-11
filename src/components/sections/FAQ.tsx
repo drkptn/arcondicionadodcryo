@@ -13,14 +13,14 @@ import { whatsappUrl } from "@/lib/whatsapp";
 export function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section id="duvidas" aria-labelledby="duvidas-titulo" className="relative scroll-mt-20 py-24 md:py-36">
+    <section id="duvidas" aria-labelledby="duvidas-titulo" className="relative py-24 md:py-36">
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 hairline" />
       <div className="container-x grid gap-14 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-4">
           <div className="lg:sticky lg:top-32">
             <SectionHeading id="duvidas-titulo" index="09" eyebrow="Dúvidas" title="Perguntas frequentes." accentFrom={1} />
             <Reveal delay={0.15} className="mt-8 max-w-xs text-base leading-relaxed text-muted">
-              Não encontrou o que procurava? Fale com a gente — respondemos sem compromisso.
+              Não encontrou o que procurava? Fale com a gente pelo WhatsApp.
             </Reveal>
             <Reveal delay={0.25} className="mt-7">
               <Button variant="glass" href={whatsappUrl("Olá! Tenho uma dúvida sobre instalação de ar-condicionado.")} external icon="whatsapp">

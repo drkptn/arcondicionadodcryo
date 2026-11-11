@@ -18,7 +18,7 @@ export function WhatsAppButton() {
   useMotionValueEvent(scrollY, "change", (value) => setPast(value > window.innerHeight * 0.6));
 
   useEffect(() => {
-    const targets = ["contato", "rodape"].map((id) => document.getElementById(id)).filter((el): el is HTMLElement => Boolean(el));
+    const targets = ["simulador", "contato", "rodape"].map((id) => document.getElementById(id)).filter((el): el is HTMLElement => Boolean(el));
     if (!targets.length) return;
     const state = new Map<Element, boolean>();
     const io = new IntersectionObserver(

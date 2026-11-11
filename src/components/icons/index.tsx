@@ -222,6 +222,7 @@ const paths = {
 } satisfies Record<string, ReactNode>;
 
 export type IconName = keyof typeof paths;
+export const iconNames = Object.keys(paths) as IconName[];
 
 type IconProps = Omit<SVGProps<SVGSVGElement>, "name"> & {
   name: IconName;

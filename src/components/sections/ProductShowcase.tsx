@@ -4,14 +4,13 @@ import { AnimatePresence, motion } from "motion/react";
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
 import { Icon } from "@/components/icons";
-import { useTheme } from "@/components/providers/ThemeProvider";
 import { Picture } from "@/components/ui/Picture";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { features, type FeatureView } from "@/config/content";
 import { cn } from "@/lib/cn";
 import { supportsWebGL, useMediaQuery, useOnScreen, usePrefersReducedMotion } from "@/lib/hooks";
-import type { DragState } from "@/components/three/ProductScene";
+import { drag, dragState } from "@/components/three/dragState";
 
 const ProductScene = dynamic(() => import("@/components/three/ProductScene"), { ssr: false });
 
@@ -21,54 +20,43 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 export function ProductShowcase() {
   const stage = useRef<HTMLDivElement>(null);
   const visible = useOnScreen(stage, "200px");
-  const { theme } = useTheme();
   const reduce = usePrefersReducedMotion();
   const small = useMediaQuery("(max-width: 767px)");
   const [view, setView] = useState<FeatureView>("design");
   const [webgl, setWebgl] = useState<boolean | null>(null);
-  const [mounted, setMounted] = useState(false);
+  // monta o canvas só quando a seção se aproxima (economiza GPU no carregamento)
+  const mounted = useOnScreen(stage, "200px", true);
   const [touched, setTouched] = useState(false);
-  const drag = useRef<DragState>({ yaw: 0, pitch: 0, dragging: false });
   const last = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     const id = requestAnimationFrame(() => setWebgl(supportsWebGL()));
     return () => cancelAnimationFrame(id);
   }, []);
-  // monta o canvas só quando a seção se aproxima (economiza GPU no carregamento)
-  useEffect(() => {
-    if (visible) setMounted(true);
-  }, [visible]);
 
   const use3D = webgl === true && !reduce;
   const active = features.find((feature) => feature.id === view)!;
 
   const select = (id: FeatureView) => {
-    drag.current.yaw = 0;
-    drag.current.pitch = 0;
+    drag.reset();
     setView(id);
   };
 
   const onPointerDown = (event: PointerEvent<HTMLDivElement>) => {
     if (!use3D) return;
-    drag.current.dragging = true;
+    drag.start();
     last.current = { x: event.clientX, y: event.clientY };
     event.currentTarget.setPointerCapture(event.pointerId);
     setTouched(true);
   };
   const onPointerMove = (event: PointerEvent<HTMLDivElement>) => {
-    if (!drag.current.dragging) return;
-    const dx = event.clientX - last.current.x;
-    const dy = event.clientY - last.current.y;
+    if (!dragState.dragging) return;
+    drag.move(event.clientX - last.current.x, event.clientY - last.current.y, event.pointerType === "mouse");
     last.current = { x: event.clientX, y: event.clientY };
-    drag.current.yaw = Math.max(-2.4, Math.min(2.4, drag.current.yaw + dx * 0.008));
-    if (event.pointerType === "mouse") drag.current.pitch = Math.max(-0.7, Math.min(0.7, drag.current.pitch + dy * 0.005));
   };
-  const onPointerUp = () => {
-    drag.current.dragging = false;
-  };
+  const onPointerUp = () => drag.end();
   const nudge = (direction: number) => {
-    drag.current.yaw = Math.max(-2.4, Math.min(2.4, drag.current.yaw + direction * 0.5));
+    drag.nudge(direction);
     setTouched(true);
   };
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -77,7 +65,7 @@ export function ProductShowcase() {
   };
 
   return (
-    <section id="tecnologia" aria-labelledby="tecnologia-titulo" className="relative scroll-mt-20 overflow-hidden py-24 md:py-36">
+    <section id="tecnologia" aria-labelledby="tecnologia-titulo" className="relative overflow-hidden py-24 md:py-36">
       <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_70%_45%,color-mix(in_srgb,var(--hero-c)_26%,transparent),transparent_70%)]" />
       <div className="container-x relative">
         <SectionHeading
@@ -94,6 +82,7 @@ export function ProductShowcase() {
           <Reveal blur className="lg:order-2 lg:col-span-8">
             <div
               ref={stage}
+              data-theme="dark"
               role="group"
               aria-label="Visualização 3D do aparelho. Use as setas esquerda e direita para girar."
               tabIndex={0}
@@ -103,14 +92,14 @@ export function ProductShowcase() {
               onPointerUp={onPointerUp}
               onPointerCancel={onPointerUp}
               onKeyDown={onKeyDown}
-              className="grain relative aspect-[4/5] touch-pan-y select-none overflow-hidden rounded-[2rem] border border-line-strong bg-[linear-gradient(160deg,var(--surface-2),var(--bg)_70%)] shadow-(--shadow) sm:aspect-[16/12] lg:aspect-auto lg:h-full lg:min-h-[36rem]"
+              className="grain relative aspect-[4/5] touch-pan-y select-none overflow-hidden rounded-[2rem] border border-line-strong bg-[linear-gradient(160deg,var(--surface-2),var(--bg)_70%)] text-fg shadow-(--shadow) sm:aspect-[16/12] lg:aspect-auto lg:h-full lg:min-h-[36rem]"
             >
               <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(55%_45%_at_50%_42%,color-mix(in_srgb,var(--accent)_22%,transparent),transparent_70%)]" />
               <div aria-hidden className="isotherms pointer-events-none absolute inset-0 opacity-70 [mask-image:linear-gradient(to_top,#000,transparent_60%)]" />
 
               <div className="absolute inset-0">
                 {use3D && mounted ? (
-                  <ProductScene view={view} light={theme === "light"} active={visible} lite={small} drag={drag} temperature={22} />
+                  <ProductScene view={view} light={false} active={visible} lite={small} temperature={22} />
                 ) : (
                   webgl !== null &&
                   !use3D && (
@@ -149,7 +138,7 @@ export function ProductShowcase() {
               <div className="absolute inset-x-5 bottom-5 flex items-end justify-between md:inset-x-7 md:bottom-7">
                 <p
                   className={cn(
-                    "pointer-events-none flex items-center gap-2.5 font-mono text-[0.625rem] uppercase tracking-[0.18em] text-muted transition-opacity duration-700",
+                    "pointer-events-none hidden items-center gap-2.5 font-mono text-[0.625rem] uppercase tracking-[0.18em] text-muted transition-opacity duration-700 sm:flex",
                     (touched || !use3D) && "opacity-0",
                   )}
                 >
@@ -157,7 +146,7 @@ export function ProductShowcase() {
                   Arraste para girar
                 </p>
                 {use3D && (
-                  <div className="flex gap-2">
+                  <div className="mx-auto flex gap-2 sm:mx-0">
                     <button
                       type="button"
                       aria-label="Girar para a esquerda"

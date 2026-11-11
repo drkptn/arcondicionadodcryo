@@ -5,6 +5,7 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Suspense, useRef, useState } from "react";
 import * as THREE from "three";
 import type { FeatureView } from "@/config/content";
+import { dragState } from "./dragState";
 import { StudioEnvironment } from "./HeroScene";
 import { SplitUnit } from "./SplitUnit";
 
@@ -28,19 +29,16 @@ export const POSES: Record<FeatureView, Pose> = {
   silencio: { yaw: 0.22, pitch: 0.42, zoom: 1, x: 0, y: -0.04, flap: 0.12, airflow: 0.16 },
 };
 
-export type DragState = { yaw: number; pitch: number; dragging: boolean };
 
 type ProductSceneProps = {
   view: FeatureView;
   light: boolean;
   active: boolean;
   lite: boolean;
-  /** Rotação extra aplicada pelo usuário (arrastar / botões). */
-  drag: React.RefObject<DragState>;
   temperature: number;
 };
 
-function Stage({ view, light, lite, drag, temperature }: Omit<ProductSceneProps, "active">) {
+function Stage({ view, light, lite, temperature }: Omit<ProductSceneProps, "active">) {
   const group = useRef<THREE.Group>(null);
   const viewport = useThree((state) => state.viewport);
   const pose = POSES[view];
@@ -51,7 +49,7 @@ function Stage({ view, light, lite, drag, temperature }: Omit<ProductSceneProps,
     if (!g) return;
     const k = 1 - Math.exp(-delta * 3.4);
     const t = state.clock.elapsedTime;
-    const d = drag.current;
+    const d = dragState;
     // sem arrasto, o giro do usuário relaxa lentamente de volta à pose
     if (!d.dragging) {
       d.yaw *= 1 - Math.min(1, delta * 0.35);
@@ -71,7 +69,7 @@ function Stage({ view, light, lite, drag, temperature }: Omit<ProductSceneProps,
       <StudioEnvironment light={light} />
       <ambientLight intensity={light ? 0.8 : 0.25} color={light ? "#ffffff" : "#9fc3ea"} />
       <directionalLight position={[-3, 4.5, 4]} intensity={light ? 1.5 : 2.0} />
-      <directionalLight position={[4, -1, 2.5]} intensity={light ? 0.3 : 0.6} color="#5d95d6" />
+      <directionalLight position={[4, -1, 2.5]} intensity={light ? 0.25 : 0.34} color="#8fb4e0" />
       <group ref={group} rotation={[0, -1.4, 0]} scale={base * 0.8}>
         <SplitUnit flap={pose.flap} airflow={pose.airflow} temperature={temperature} light={light} />
       </group>
@@ -89,7 +87,7 @@ function Stage({ view, light, lite, drag, temperature }: Omit<ProductSceneProps,
 }
 
 /** Vitrine de produto: o split gira para destacar cada recurso e pode ser girado pelo usuário. */
-export default function ProductScene({ view, light, active, lite, drag, temperature }: ProductSceneProps) {
+export default function ProductScene({ view, light, active, lite, temperature }: ProductSceneProps) {
   const [dpr, setDpr] = useState(lite ? 1.4 : 1.75);
   return (
     <Canvas
@@ -102,7 +100,7 @@ export default function ProductScene({ view, light, active, lite, drag, temperat
     >
       <PerformanceMonitor onDecline={() => setDpr(1)} flipflops={2} />
       <Suspense fallback={null}>
-        <Stage view={view} light={light} lite={lite} drag={drag} temperature={temperature} />
+        <Stage view={view} light={light} lite={lite} temperature={temperature} />
       </Suspense>
     </Canvas>
   );

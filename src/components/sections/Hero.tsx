@@ -74,7 +74,7 @@ export function Hero() {
       <motion.div
         aria-hidden
         style={{ y: numeralY }}
-        className="pointer-events-none absolute right-[-3vw] top-[13%] -z-10 hidden select-none font-display font-semibold leading-none tracking-[-0.06em] text-transparent [-webkit-text-stroke:1px_var(--line-strong)] md:block md:text-[30vw] xl:text-[25rem]"
+        className="pointer-events-none absolute right-[5vw] top-[11svh] -z-10 hidden select-none font-display text-[clamp(9rem,17vw,17rem)] font-semibold leading-none tracking-[-0.06em] text-transparent [-webkit-text-stroke:1px_var(--line-strong)] lg:block"
       >
         <AnimatePresence mode="popLayout" initial={false}>
           <motion.span
@@ -115,9 +115,9 @@ export function Hero() {
       {/* ---------- Conteúdo ---------- */}
       <motion.div
         style={{ y: contentY, opacity: contentOpacity }}
-        className="container-x relative z-10 flex flex-1 flex-col justify-end pb-6 pt-[46svh] md:justify-center md:pb-0 md:pt-28"
+        className="container-x relative z-10 flex flex-1 flex-col justify-end pb-6 pt-[47svh] md:justify-center md:pb-16 md:pt-28"
       >
-        <div className="max-w-[40rem]">
+        <div className="max-w-[46rem]">
           <motion.p
             data-reveal
             initial={{ opacity: 0, y: 14 }}
@@ -134,7 +134,10 @@ export function Hero() {
               <Words text="Seu ambiente." immediate delay={delay + 0.1} />
             </span>
             <span className="block">
-              <Words text="Na temperatura perfeita." immediate delay={delay + 0.28} className="text-ice-gradient" />
+              <Words text="Na temperatura" immediate delay={delay + 0.26} />
+            </span>
+            <span className="block">
+              <Words text="perfeita." immediate delay={delay + 0.4} accentFrom={0} accentClassName="text-ice-gradient" />
             </span>
           </h1>
 
@@ -179,7 +182,7 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.2, delay: delay + 1 }}
-        className="container-x relative z-10 flex items-end justify-between gap-6 pb-7 pt-8 md:pb-10"
+        className="container-x relative z-10 flex items-end justify-between gap-6 pb-7 pt-8 md:absolute md:inset-x-0 md:bottom-0 md:pb-9 md:pt-0"
       >
         <a href="#sobre" className="group hidden items-center gap-4 md:flex">
           <span aria-hidden className="relative h-14 w-px overflow-hidden bg-line-strong">

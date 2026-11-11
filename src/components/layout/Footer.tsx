@@ -105,8 +105,8 @@ export function Footer({ home = true }: { home?: boolean }) {
         </div>
 
         {/* marca d'água */}
-        <div aria-hidden className="pointer-events-none mt-16 select-none text-frost/[0.07] md:mt-24">
-          <LogoWordmark height={0} className="!h-auto w-full" />
+        <div aria-hidden className="pointer-events-none mt-16 select-none text-frost/[0.09] md:mt-24">
+          <LogoWordmark fluid strokeWidth={0.45} />
         </div>
 
         <div className="mt-10 flex flex-col gap-4 border-t border-line pt-7 text-xs text-muted md:flex-row md:items-center md:justify-between">

@@ -101,7 +101,7 @@ export function BudgetSimulator() {
   };
 
   return (
-    <section id="simulador" aria-labelledby="simulador-titulo" className="relative scroll-mt-20 overflow-hidden py-24 md:py-36">
+    <section id="simulador" aria-labelledby="simulador-titulo" className="relative overflow-hidden py-24 md:py-36">
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 hairline" />
       <div aria-hidden className="pointer-events-none absolute -left-40 top-1/3 size-[36rem] rounded-full bg-ocean/25 blur-[130px] light:bg-ice/50" />
       <div className="container-x relative grid gap-12 lg:grid-cols-12 lg:gap-10">
@@ -139,11 +139,11 @@ export function BudgetSimulator() {
 
         <Reveal blur className="lg:col-span-7">
           <div className="glass relative overflow-hidden rounded-[2rem] shadow-(--shadow)">
-            <Condensation count={34} seed={23} />
+            <Condensation count={20} seed={23} />
             {/* progresso */}
             <div className="relative flex items-center justify-between gap-4 border-b border-(--glass-line) px-6 py-5 md:px-9">
               <p className="eyebrow">
-                Etapa <span className="text-accent">{String(step + 1).padStart(2, "0")}</span> / 04 · {stepNames[step]}
+                Etapa <span className="text-accent">{String(step + 1).padStart(2, "0")}</span> / 04<span className="hidden sm:inline"> · {stepNames[step]}</span>
               </p>
               <div aria-hidden className="flex gap-1.5">
                 {stepNames.map((name, index) => (

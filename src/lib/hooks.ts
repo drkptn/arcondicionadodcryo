@@ -28,15 +28,22 @@ export function useHydrated() {
 }
 
 /** Observa se o elemento está na tela (para pausar canvas e animações fora de vista). */
-export function useOnScreen<T extends Element>(ref: RefObject<T | null>, rootMargin = "0px") {
+export function useOnScreen<T extends Element>(ref: RefObject<T | null>, rootMargin = "0px", once = false) {
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const io = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting), { rootMargin });
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        setVisible(entry.isIntersecting);
+        // `once`: depois da primeira vez na tela, permanece verdadeiro
+        if (once && entry.isIntersecting) io.disconnect();
+      },
+      { rootMargin },
+    );
     io.observe(el);
     return () => io.disconnect();
-  }, [ref, rootMargin]);
+  }, [ref, rootMargin, once]);
   return visible;
 }
 

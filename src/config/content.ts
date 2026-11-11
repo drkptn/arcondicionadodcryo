@@ -275,7 +275,7 @@ export const gallery: GalleryItem[] = [
     place: "Residencial",
     category: "residencial",
     alt: "Render ilustrativo: sala de estar com sofá azul-marinho e split instalado na parede",
-    layout: "lg:col-span-8 lg:row-span-2",
+    layout: "lg:col-span-8 lg:row-span-3",
   },
   {
     image: "quarto",
@@ -283,7 +283,7 @@ export const gallery: GalleryItem[] = [
     place: "Residencial",
     category: "residencial",
     alt: "Render ilustrativo: quarto ao entardecer com split sobre parede azul",
-    layout: "lg:col-span-4 lg:row-span-3",
+    layout: "lg:col-span-4 lg:row-span-5",
   },
   {
     image: "detalhe_display",
@@ -307,7 +307,7 @@ export const gallery: GalleryItem[] = [
     place: "Comercial",
     category: "comercial",
     alt: "Render ilustrativo: recepção comercial com balcão de madeira e dois splits",
-    layout: "lg:col-span-8 lg:row-span-2",
+    layout: "lg:col-span-8 lg:row-span-3",
   },
   {
     image: "detalhe_acabamento",
@@ -315,7 +315,7 @@ export const gallery: GalleryItem[] = [
     place: "Detalhe",
     category: "detalhes",
     alt: "Render ilustrativo: split visto de baixo com aleta aberta e canaleta alinhada",
-    layout: "lg:col-span-4 lg:row-span-3",
+    layout: "lg:col-span-4 lg:row-span-4",
   },
   {
     image: "reuniao",

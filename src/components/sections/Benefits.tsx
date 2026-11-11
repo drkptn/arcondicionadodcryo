@@ -6,7 +6,7 @@ import { benefits } from "@/config/content";
 /** 06 — Diferenciais: lista editorial com título fixo ao lado. */
 export function Benefits() {
   return (
-    <section id="diferenciais" aria-labelledby="diferenciais-titulo" className="relative scroll-mt-20 py-24 md:py-36">
+    <section id="diferenciais" aria-labelledby="diferenciais-titulo" className="relative py-24 md:py-36">
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 hairline" />
       <div className="container-x grid gap-14 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-5">

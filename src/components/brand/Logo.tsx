@@ -77,22 +77,27 @@ export function LogoWordmark({
   height = 18,
   tone = "current",
   className,
+  fluid = false,
+  strokeWidth = 4.4,
 }: {
   height?: number;
   tone?: Exclude<LogoTone, "gradient">;
   className?: string;
+  /** Ocupa 100% da largura do contêiner (marca d'água). */
+  fluid?: boolean;
+  strokeWidth?: number;
 }) {
   const stroke = tone === "current" ? "currentColor" : SOLID[tone];
   return (
     <svg
-      height={height}
+      height={fluid ? undefined : height}
       viewBox={WORDMARK_VIEWBOX}
       fill="none"
       stroke={stroke}
-      strokeWidth="4.4"
+      strokeWidth={strokeWidth}
       strokeLinejoin="round"
       className={className}
-      style={{ width: "auto" }}
+      style={fluid ? { width: "100%", height: "auto" } : { width: "auto" }}
       aria-hidden
     >
       {WORDMARK_PATHS.map((d) => (

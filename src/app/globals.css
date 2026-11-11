@@ -214,8 +214,8 @@ html.has-cursor textarea {
 @utility display-xl {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: clamp(2.6rem, 6.4vw + 0.4rem, 6.75rem);
-  line-height: 0.98;
+  font-size: clamp(2.5rem, min(5vw + 0.6rem, 11.2vh), 5.75rem);
+  line-height: 1;
   letter-spacing: -0.045em;
 }
 
