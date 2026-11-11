@@ -24,7 +24,7 @@ type HeroSceneProps = {
 export function StudioEnvironment({ light }: { light: boolean }) {
   return (
     <Environment key={light ? "light" : "dark"} resolution={256} frames={1}>
-      <color attach="background" args={[light ? "#b9cbdc" : "#03060c"]} />
+      <color attach="background" args={[light ? "#a6bace" : "#03060c"]} />
       <Lightformer form="rect" intensity={light ? 3.2 : 4.2} color="#ffffff" position={[-4, 4, 4]} scale={[7, 3.5, 1]} target={[0, 0, 0]} />
       <Lightformer form="rect" intensity={light ? 1.4 : 1.7} color="#a9cdf0" position={[5, 1, -3]} scale={[5, 7, 1]} target={[0, 0, 0]} />
       <Lightformer form="rect" intensity={light ? 1.2 : 1.1} color="#3f78c4" position={[0, -4, 2]} scale={[9, 2.5, 1]} target={[0, 0, 0]} />
@@ -98,7 +98,7 @@ function Rig({ temperature, light, lite, pointer, onReady }: Omit<HeroSceneProps
         m.color.set(light ? "#1a3f75" : "#5c9be0");
         m.needsUpdate = true;
       }
-      m.opacity = (light ? 0.17 : 0.16 + cold * 0.2) * ease * (0.85 + Math.sin(t * 0.9) * 0.15);
+      m.opacity = (light ? 0.23 : 0.16 + cold * 0.2) * ease * (0.85 + Math.sin(t * 0.9) * 0.15);
       glow.current.position.set(g.position.x, g.position.y - 0.62 * s, -0.4);
       glow.current.scale.set(3.4 * s, 1.5 * s, 1);
     }
@@ -107,7 +107,7 @@ function Rig({ temperature, light, lite, pointer, onReady }: Omit<HeroSceneProps
   return (
     <>
       <StudioEnvironment light={light} />
-      <ambientLight intensity={light ? 0.75 : 0.22} color={light ? "#ffffff" : "#9fc3ea"} />
+      <ambientLight intensity={light ? 0.58 : 0.22} color={light ? "#ffffff" : "#9fc3ea"} />
       <directionalLight position={[-3.5, 4.5, 4]} intensity={light ? 1.6 : 1.9} color="#ffffff" />
       <directionalLight position={[4, -1.5, 2]} intensity={light ? 0.2 : 0.32} color="#8fb4e0" />
       <pointLight ref={cursorLight} position={[0, 0, 1.7]} intensity={light ? 2 : 5.5} distance={5} decay={2} color="#bfe1ff" />
