@@ -1,0 +1,6 @@
+User-Agent: *
+Allow: /
+Disallow: /marca/
+
+Host: https://drkptn.github.io/arcondicionadodcryo
+Sitemap: https://drkptn.github.io/arcondicionadodcryo/sitemap.xml
