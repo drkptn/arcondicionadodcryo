@@ -1,0 +1,129 @@
+{
+  "comercial": {
+    "width": 1920,
+    "height": 960,
+    "widths": [
+      480,
+      800,
+      1200,
+      1600,
+      1920
+    ],
+    "alpha": false,
+    "blur": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAAAQBACdASoYAAwAPu1mqk2ppaQiMAgBMB2JZwDCgB6vGBoghBoixUflwADLSyKdVkO1prcOWkQgmRLSj+nLHz+utj4lQ8uLj5KuJwWuz2ELSzK/n7iqG5OCljSrKTXAp3TOg/BFEV6ndOsiCAA="
+  },
+  "detalhe_acabamento": {
+    "width": 1280,
+    "height": 1600,
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "alpha": false,
+    "blur": "data:image/webp;base64,UklGRqIAAABXRUJQVlA4IJYAAAAQBQCdASoYAB4APu1wsFKppiSiqAgBMB2JZwAL4AB4XkxXJwOXv+6s2w3pYdr5ND6AAPxS60tkobt8L+o3Z2xlCZK0og317OA7TBJqeRQ/VBqzEdlmQM8+BMrEedt7/a46C10NS5EiqZ6iPiw/EHuQtH3R8kAj7Z3qzVAG8l7+QI41UvjjmC8YzKeZ+gK+iMZj7oQAAAA="
+  },
+  "detalhe_display": {
+    "width": 1400,
+    "height": 1400,
+    "widths": [
+      480,
+      800,
+      1200,
+      1400
+    ],
+    "alpha": false,
+    "blur": "data:image/webp;base64,UklGRpoAAABXRUJQVlA4II4AAADwBACdASoYABgAPu1cqU4ppKOiMBgMATAdiWMAnTKAATKKn2VZEwriPkyb+H6tQAAA/ecIYFjCgDx0mwWSQejyWB5Vb7Pm/Lk0aFdrmpgktKo+OowMFPHl1MSGGluWn5iG08E/xPatfx7AWj3usmN3qzl1cg7vG9LBVVSlbLFIlWYdkweA9C6OJx5oAAAA"
+  },
+  "escritorio": {
+    "width": 1800,
+    "height": 1200,
+    "widths": [
+      480,
+      800,
+      1200,
+      1600,
+      1800
+    ],
+    "alpha": false,
+    "blur": "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAADQAwCdASoYABAAPu1iqU2ppaOiMAgBMB2JZwAANT6wtr9vVw3Z3+AA99vW25Ip/ZJp1d76MRzscuiMsPefbjcV25tTnnn0g/KFNITWN6Olq00V2eR1PzV4inKDB8NuTKDO732gUSRtw5teJN8jl63p/mnVir3AAAA="
+  },
+  "product_front": {
+    "width": 2000,
+    "height": 820,
+    "widths": [
+      480,
+      800,
+      1200,
+      1600,
+      2000
+    ],
+    "alpha": true,
+    "blur": null
+  },
+  "product_hero": {
+    "width": 2000,
+    "height": 1180,
+    "widths": [
+      480,
+      800,
+      1200,
+      1600,
+      2000
+    ],
+    "alpha": true,
+    "blur": null
+  },
+  "product_open": {
+    "width": 1800,
+    "height": 1170,
+    "widths": [
+      480,
+      800,
+      1200,
+      1600,
+      1800
+    ],
+    "alpha": true,
+    "blur": null
+  },
+  "quarto": {
+    "width": 1280,
+    "height": 1600,
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "alpha": false,
+    "blur": "data:image/webp;base64,UklGRs4AAABXRUJQVlA4IMIAAACQBQCdASoYAB4APu1aqU2ppKOiN/VYATAdiUATpmCY4/7QvwQ5RgoKq9iYzGQ8Ew8k9M6UiAD8Wmnfejw++K1mF+9s+wejD4WTcVz6mqHaWMkqs50pnTlUqP6F1FY3S2SlOgyJg8bWqpruSfvIzIauHs/chtp0Zbq+rKSkCTlIEeNi3jNZPUuzMmfgk9m7UX9A7Izbpso5hZjqict/2rnSG3y8NLJkuuGVxxBjwnHzMjrfSXm8Euz5RKYStpi9NjIAAA=="
+  },
+  "reuniao": {
+    "width": 1800,
+    "height": 1200,
+    "widths": [
+      480,
+      800,
+      1200,
+      1600,
+      1800
+    ],
+    "alpha": false,
+    "blur": "data:image/webp;base64,UklGRpQAAABXRUJQVlA4IIgAAAAwBACdASoYABAAPu1iqU2ppaQiMAgBMB2JYwCdAB6XTsjRVwwuRejGSUAA/urIhFcRpVWfZr/T/Tbgon/m+CwYTkOMCnW9NXA+rTv7uFrJlkARWhhIDB1wc0wtAgSS+54fF/ocB/qo8YPIVI6xa29pPiH2/oZX2H5mrLKEGVfmtMyyK4rv8YAA"
+  },
+  "sala": {
+    "width": 1800,
+    "height": 1125,
+    "widths": [
+      480,
+      800,
+      1200,
+      1600,
+      1800
+    ],
+    "alpha": false,
+    "blur": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAACwAwCdASoYAA8APu1iqk4ppaQiMAgBMB2JZwDLLBAb6MvCqyGl4AD+sM69PTkwSCz5zYiJxDD5x0zVqxxp/En/rxotTTePonirYDNqOmV0bNRfalqfzs3G2CzwW4Ebr5qTMKIdEAA="
+  }
+}

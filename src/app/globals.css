@@ -1,0 +1,487 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
+@custom-variant hoverable (@media (hover: hover) and (pointer: fine));
+
+/* ==========================================================================
+   DCRYO — tokens de design
+   Paleta-base: #141E30 · #1A3F75 · #35577D · #A9C8E0 · #EAF3FA · #00002A · #8494A8
+   ========================================================================== */
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #070c18;
+  --bg-2: #0a1222;
+  --surface: #101a2c;
+  --surface-2: #162338;
+  --line: rgb(169 200 224 / 0.11);
+  --line-strong: rgb(169 200 224 / 0.22);
+  --fg: #eaf3fa;
+  --fg-soft: #c2d3e4;
+  --muted: #8494a8;
+  --accent: #a9c8e0;
+  --accent-strong: #6f9dc8;
+  --on-accent: #0a1222;
+  --glass: rgb(20 30 48 / 0.55);
+  --glass-line: rgb(169 200 224 / 0.16);
+  --shadow: 0 30px 80px -30px rgb(0 0 20 / 0.8);
+  --glow: rgb(111 157 200 / 0.28);
+  --hero-a: #00002a;
+  --hero-b: #0d1f3d;
+  --hero-c: #1a3f75;
+  --grain-opacity: 0.07;
+  --danger: #f2a9a9;
+  --btn-primary: linear-gradient(135deg, #2f62a6 0%, #1a3f75 55%, #16335f 100%);
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f1f5f9;
+  --bg-2: #e7eef5;
+  --surface: #ffffff;
+  --surface-2: #f6f9fc;
+  --line: rgb(20 30 48 / 0.09);
+  --line-strong: rgb(20 30 48 / 0.18);
+  --fg: #141e30;
+  --fg-soft: #2b3b54;
+  --muted: #5a6a80;
+  --accent: #1a3f75;
+  --accent-strong: #35577d;
+  --on-accent: #ffffff;
+  --glass: rgb(255 255 255 / 0.62);
+  --glass-line: rgb(26 63 117 / 0.14);
+  --shadow: 0 30px 70px -34px rgb(26 63 117 / 0.35);
+  --glow: rgb(53 87 125 / 0.2);
+  --hero-a: #dbe7f2;
+  --hero-b: #c5d9ea;
+  --hero-c: #a9c8e0;
+  --grain-opacity: 0.045;
+  --danger: #b3261e;
+  --btn-primary: linear-gradient(135deg, #24528f 0%, #1a3f75 45%, #141e30 100%);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-fg: var(--fg);
+  --color-fg-soft: var(--fg-soft);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-on-accent: var(--on-accent);
+
+  --color-navy: #141e30;
+  --color-ocean: #1a3f75;
+  --color-mid: #35577d;
+  --color-ice: #a9c8e0;
+  --color-frost: #eaf3fa;
+  --color-abyss: #00002a;
+  --color-steel: #8494a8;
+  --color-deep: #070c18;
+
+  --font-display: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-smooth: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-drift: drift 38s linear infinite;
+  --animate-pulse-soft: pulse-soft 3.2s ease-in-out infinite;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+    50% {
+      transform: translate3d(0, -14px, 0);
+    }
+  }
+  @keyframes drift {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+  @keyframes pulse-soft {
+    0%,
+    100% {
+      opacity: 0.55;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.12);
+    }
+  }
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+html {
+  background: var(--bg);
+  scroll-padding-top: 5.5rem;
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  overflow-x: clip;
+}
+
+::selection {
+  background: #35577d;
+  color: #eaf3fa;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* Lenis (rolagem suave) */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+/* Cursor personalizado: só em dispositivos com mouse */
+html.has-cursor,
+html.has-cursor * {
+  cursor: none !important;
+}
+html.has-cursor input,
+html.has-cursor textarea {
+  cursor: text !important;
+}
+
+/* ==========================================================================
+   Utilitários da marca
+   ========================================================================== */
+@utility container-x {
+  width: 100%;
+  max-width: 84rem;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 3rem);
+}
+
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+@utility display-xl {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.5rem, min(5vw + 0.6rem, 11.2vh), 5.75rem);
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+@utility display-lg {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.1rem, 3.6vw + 0.9rem, 4.25rem);
+  line-height: 1.04;
+  letter-spacing: -0.038em;
+}
+
+@utility display-md {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 1.5vw + 1rem, 2.25rem);
+  line-height: 1.12;
+  letter-spacing: -0.028em;
+}
+
+@utility text-ice-gradient {
+  background-image: linear-gradient(100deg, var(--fg) 0%, var(--accent) 45%, var(--accent-strong) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Vidro refrigerado */
+@utility glass {
+  background: var(--glass);
+  border: 1px solid var(--glass-line);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+}
+
+@utility hairline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line-strong) 18%, var(--line-strong) 82%, transparent);
+}
+
+/* Superfície com spotlight que acompanha o cursor (ver TiltCard) */
+.spot {
+  position: relative;
+  isolation: isolate;
+}
+.spot::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    340px circle at var(--mx, 50%) var(--my, 0%),
+    color-mix(in srgb, var(--accent) 85%, transparent),
+    transparent 62%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-out-expo);
+  pointer-events: none;
+  z-index: 2;
+}
+.spot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    520px circle at var(--mx, 50%) var(--my, 0%),
+    color-mix(in srgb, var(--accent) 12%, transparent),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-out-expo);
+  pointer-events: none;
+  z-index: 1;
+}
+@media (hover: hover) and (pointer: fine) {
+  .spot:hover::before,
+  .spot:hover::after {
+    opacity: 1;
+  }
+}
+
+/* Granulação sutil de filme sobre fundos */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .9 0 0 0 0 .95 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+/* Padrão geométrico da marca: isotermas (linhas de fluxo) */
+.isotherms {
+  background-image: repeating-radial-gradient(
+    ellipse 120% 80% at 50% 120%,
+    transparent 0,
+    transparent 38px,
+    var(--line) 38px,
+    var(--line) 39px
+  );
+}
+
+/* Link sublinhado com traço que desliza */
+.link-line {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.5s var(--ease-out-expo);
+}
+.link-line:hover,
+.link-line:focus-visible {
+  background-size: 100% 1px;
+}
+
+/* Skip link */
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 200;
+  transform: translateY(-200%);
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background: var(--fg);
+  color: var(--bg);
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+.skip-link:focus {
+  transform: none;
+}
+
+/* ==========================================================================
+   Preloader (funciona só com CSS; o JS apenas pula em visitas repetidas)
+   ========================================================================== */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: grid;
+  place-items: center;
+  background: #070c18;
+  color: #eaf3fa;
+  animation: preloader-out 0.9s var(--ease-in-out-smooth) 1.35s forwards;
+}
+html.no-intro .preloader {
+  display: none;
+}
+.preloader-symbol path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 1s var(--ease-out-expo) forwards;
+}
+.preloader-symbol path:nth-child(2) {
+  animation-delay: 0.12s;
+}
+.preloader-symbol path:nth-child(3) {
+  animation-delay: 0.24s;
+}
+.preloader-bar {
+  transform-origin: left;
+  transform: scaleX(0);
+  animation: grow-x 1.25s var(--ease-in-out-smooth) 0.05s forwards;
+}
+.preloader-fade {
+  opacity: 0;
+  animation: fade-up 0.7s var(--ease-out-expo) 0.3s forwards;
+}
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes grow-x {
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes preloader-out {
+  0% {
+    clip-path: inset(0 0 0 0);
+    visibility: visible;
+  }
+  100% {
+    clip-path: inset(0 0 100% 0);
+    visibility: hidden;
+  }
+}
+
+/* ==========================================================================
+   Troca de tema — "frente fria" circular (View Transitions API)
+   ========================================================================== */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-new(root) {
+  clip-path: circle(0 at var(--vt-x, 50%) var(--vt-y, 0%));
+  animation: vt-reveal 0.85s var(--ease-in-out-smooth) forwards;
+}
+@keyframes vt-reveal {
+  to {
+    clip-path: circle(150vmax at var(--vt-x, 50%) var(--vt-y, 0%));
+  }
+}
+
+/* ==========================================================================
+   Acessibilidade: menos movimento
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .preloader {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   Hero
+   ========================================================================== */
+@keyframes scroll-hint {
+  0% {
+    transform: translateY(-110%);
+  }
+  100% {
+    transform: translateY(300%);
+  }
+}
+
+/* Textura de água: ruído fractal esticado na horizontal (lembra a superfície do mar à noite) */
+.water {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='420'%3E%3Cfilter id='w' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.006 .034' numOctaves='3' seed='8' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .66 0 0 0 0 .78 0 0 0 0 .88 0 0 0 2.6 -1.25'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23w)'/%3E%3C/svg%3E");
+  background-size: 900px 100%;
+  opacity: 0.28;
+  mix-blend-mode: screen;
+}
+[data-theme="light"] .water {
+  mix-blend-mode: multiply;
+  opacity: 0.22;
+  filter: invert(1) hue-rotate(180deg);
+}
