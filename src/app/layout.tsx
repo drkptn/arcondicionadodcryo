@@ -13,11 +13,19 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "sw
 const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains", display: "swap", weight: ["400", "500"] });
 
 const title = "DCRYO — Instalação de ar-condicionado e climatização";
+/** Imagem de compartilhamento (public/opengraph-image.png), resolvida a partir de NEXT_PUBLIC_SITE_URL. */
+const shareImage = {
+  url: "opengraph-image.png",
+  width: 1200,
+  height: 630,
+  alt: "DCRYO — Seu ambiente. Na temperatura perfeita.",
+};
 const description =
   "Instalação de ar-condicionado Split e Inverter para residências e empresas. Avaliação técnica, orçamento transparente e acabamento cuidadoso. Solicite seu orçamento.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(site.url),
+  // Barra final: caminhos relativos ficam dentro da subpasta quando o site não está na raiz do domínio.
+  metadataBase: new URL(`${site.url.replace(/\/$/, "")}/`),
   title: { default: title, template: "%s · DCRYO" },
   description,
   applicationName: site.name,
@@ -33,16 +41,17 @@ export const metadata: Metadata = {
     "higienização de ar-condicionado",
     ...site.cities.map((city) => `instalação de ar-condicionado em ${city}`),
   ],
-  alternates: { canonical: "/" },
+  alternates: { canonical: "./" },
   openGraph: {
     type: "website",
     locale: "pt_BR",
-    url: "/",
+    url: "./",
     siteName: site.name,
     title,
     description,
+    images: [shareImage],
   },
-  twitter: { card: "summary_large_image", title, description },
+  twitter: { card: "summary_large_image", title, description, images: [shareImage] },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large" } },
   formatDetection: { telephone: false },
 };

@@ -6,7 +6,7 @@ import { Logo } from "@/components/brand/Logo";
 import { useQuote } from "@/components/providers/QuoteProvider";
 import { useScroller } from "@/components/providers/SmoothScroll";
 import { Button } from "@/components/ui/Button";
-import { navigation } from "@/config/site";
+import { basePath, navigation } from "@/config/site";
 import { cn } from "@/lib/cn";
 import { whatsappUrl } from "@/lib/whatsapp";
 import { ThemeToggle } from "./ThemeToggle";
@@ -81,7 +81,7 @@ export function Header({ home = true }: { home?: boolean }) {
     return () => mql.removeEventListener("change", onChange);
   }, []);
 
-  const href = (id: string) => (home ? `#${id}` : `/#${id}`);
+  const href = (id: string) => (home ? `#${id}` : `${basePath}/#${id}`);
 
   const go = (id: string) => {
     setOpen(false);
@@ -106,7 +106,7 @@ export function Header({ home = true }: { home?: boolean }) {
             )}
           >
             <a
-              href={home ? "#topo" : "/"}
+              href={home ? "#topo" : `${basePath}/`}
               aria-label="DCRYO — início"
               className="relative z-10 flex items-center rounded-full text-fg"
               onClick={() => setOpen(false)}

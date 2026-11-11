@@ -107,8 +107,22 @@ O build gera HTML/CSS/JS estáticos em `out/` — hospede em Vercel, Netlify, Cl
 GitHub Pages ou qualquer servidor de arquivos. Para publicar em subpasta, defina
 `NEXT_PUBLIC_BASE_PATH` (ex.: `/arcondicionadodcryo`) antes do build.
 
-Defina `NEXT_PUBLIC_SITE_URL` com o domínio final: ele alimenta o sitemap, o `robots.txt`,
-as tags Open Graph e os dados estruturados (schema.org).
+Defina `NEXT_PUBLIC_SITE_URL` com o endereço público completo (incluindo a subpasta, se houver):
+ele alimenta o sitemap, o `robots.txt`, as tags Open Graph e os dados estruturados (schema.org).
+
+### GitHub Pages (versão atual)
+
+O site está publicado em **https://drkptn.github.io/arcondicionadodcryo/**, servido a partir do
+branch `gh-pages` (somente os arquivos gerados — o código fica nos outros branches). Para atualizar:
+
+```bash
+NEXT_PUBLIC_BASE_PATH=/arcondicionadodcryo \
+NEXT_PUBLIC_SITE_URL=https://drkptn.github.io/arcondicionadodcryo \
+npm run build
+touch out/.nojekyll   # sem isso o GitHub ignora a pasta _next
+```
+
+Depois, publique o conteúdo de `out/` no branch `gh-pages`.
 
 ## Acessibilidade e desempenho
 

@@ -6,7 +6,7 @@ import { basePath, site } from "@/config/site";
 export const metadata: Metadata = {
   title: "Política de privacidade",
   description: "Como a DCRYO coleta, usa e protege os dados enviados pelo site.",
-  alternates: { canonical: "/privacidade/" },
+  alternates: { canonical: "privacidade/" },
 };
 
 /** Atualize esta data sempre que o texto mudar. */
